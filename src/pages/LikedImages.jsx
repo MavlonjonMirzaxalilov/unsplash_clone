@@ -1,9 +1,6 @@
-import React from 'react'
-
+import { useGlobalContext } from './../hooks/useGlobalContext'
 function LikedImages() {
-	return (
-		<div>LikedImages</div>
-	)
+	return <div>LikedImages</div>
 }
 
 export default LikedImages

@@ -1,11 +1,29 @@
 import React from 'react'
 import { FaRegHeart, FaHeart, FaDownload } from 'react-icons/fa'
+import { useGlobalContext } from './../hooks/useGlobalContext'
 function Image({ image }) {
+	const { likedImages, dispatch } = useGlobalContext()
 	const { links, urls, alt_description, user } = image
+
+	const addLikedImage = image => {
+		const alreadyAdded = likedImages.some(img => {
+			return img.id === image.id
+		})
+
+		if (!alreadyAdded) {
+			dispatch({ type: 'LIKE_IMAGE', payload: image })
+		} else {
+			dispatch({ type: 'UNLIKE_IMAGE', payload: image.id })
+		}
+	}
+
 	return (
 		<div className='relative group'>
 			{true && (
-				<span className='absolute heart-icon  hover-icons'>
+				<span
+					onClick={() => addLikedImage(image)}
+					className='absolute heart-icon  hover-icons'
+				>
 					<FaRegHeart className='text-white ' />
 				</span>
 			)}

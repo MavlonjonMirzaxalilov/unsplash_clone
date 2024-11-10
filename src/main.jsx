@@ -1,5 +1,10 @@
 import { render } from 'preact'
 import App from './app'
 import './index.css'
-
-render(<App />, document.getElementById('app'))
+import { GlobalContextProvider } from './context/GlobalContext'
+render(
+	<GlobalContextProvider>
+		<App />
+	</GlobalContextProvider>,
+	document.getElementById('app')
+)
