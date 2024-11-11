@@ -4,7 +4,14 @@ function LikedImages() {
 	const { likedImages } = useGlobalContext()
 
 	if (likedImages.length === 0) {
-		return <h1>You don't choose any images yet!</h1>
+		return (
+			<div className='h-full flex justify-center items-center gap-10 flex-col'>
+				<h1 className='text-center text-4xl'>
+					You don't choose any images yet!
+				</h1>
+				<button className='btn btn-primary'>Go Home</button>
+			</div>
+		)
 	}
 
 	return (
