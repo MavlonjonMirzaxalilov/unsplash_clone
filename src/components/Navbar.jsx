@@ -8,12 +8,14 @@ import { FaSun, FaMoon, FaUnsplash } from 'react-icons/fa'
 //links
 import { NavLinks } from './'
 import { useEffect, useState } from 'preact/hooks'
+import { useGlobalContext } from '../hooks/useGlobalContext'
 
 const themeFromLocalStorage = () => {
 	return localStorage.getItem('theme') || 'winter'
 }
 
 function Navbar() {
+	const { likedImages } = useGlobalContext()
 	const [theme, setTheme] = useState(themeFromLocalStorage())
 	const toggleTheme = () => {
 		const newTheme = theme == 'winter' ? 'dracula' : 'winter'
@@ -53,7 +55,7 @@ function Navbar() {
 					<Link to={'/liked-images'}>
 						<div className='indicator'>
 							<span className='indicator-item badge badge-sm badge-secondary'>
-								0
+								{likedImages.length}
 							</span>
 							<FaHeart className='h-6 w-6' />
 						</div>
