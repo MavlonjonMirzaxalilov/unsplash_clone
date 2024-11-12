@@ -3,19 +3,20 @@ import { Link } from 'react-router-dom'
 // react-icons
 
 import { FaHeart } from 'react-icons/fa6'
-import { FaSun, FaMoon, FaUnsplash } from 'react-icons/fa'
+import { FaSun, FaMoon, FaUnsplash, FaDownload } from 'react-icons/fa'
 
 //links
 import { NavLinks } from './'
 import { useEffect, useState } from 'preact/hooks'
 import { useGlobalContext } from '../hooks/useGlobalContext'
 
+
 const themeFromLocalStorage = () => {
 	return localStorage.getItem('theme') || 'winter'
 }
 
 function Navbar() {
-	const { likedImages } = useGlobalContext()
+	const { likedImages, downloadImages } = useGlobalContext()
 	const [theme, setTheme] = useState(themeFromLocalStorage())
 	const toggleTheme = () => {
 		const newTheme = theme == 'winter' ? 'dracula' : 'winter'
@@ -51,7 +52,15 @@ function Navbar() {
 						<NavLinks />
 					</ul>
 				</div>
-				<div className='navbar-end flex gap-3 items-center'>
+				<div className='navbar-end flex gap-6 items-center'>
+					<Link to={'/download-images'}>
+						<div className='indicator'>
+							<span className='indicator-item badge badge-sm badge-secondary'>
+								{downloadImages}
+							</span>
+							<FaDownload className='h-6 w-6' />
+						</div>
+					</Link>
 					<Link to={'/liked-images'}>
 						<div className='indicator'>
 							<span className='indicator-item badge badge-sm badge-secondary'>
@@ -66,10 +75,10 @@ function Navbar() {
 						<input type='checkbox' onClick={toggleTheme} />
 
 						{/* sun icon */}
-						<FaSun className='swap-on h-6 w-6 fill-current' />
+						<FaSun className='swap-on h-7 w-7 fill-current' />
 
 						{/* moon icon */}
-						<FaMoon className='swap-off h-6 w-6 fill-current' />
+						<FaMoon className='swap-off h-7 w-7 fill-current' />
 					</label>
 				</div>
 			</div>

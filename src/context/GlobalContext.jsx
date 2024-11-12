@@ -7,6 +7,7 @@ const dataFromLocalStorage = () => {
 	return (
 		JSON.parse(localStorage.getItem('my-splash-data')) || {
 			likedImages: [],
+			downloadImages: [],
 		}
 	)
 }
