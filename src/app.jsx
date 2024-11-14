@@ -29,7 +29,7 @@ function App() {
 				{ path: '/contact', element: <Contact /> },
 				{ path: '/liked-images', element: <LikedImages /> },
 				{ path: '/download-images', element: <DownloadImages /> },
-				{ path: '/image-info', element: <ImageInfo /> },
+				{ path: '/image-info/:id', element: <ImageInfo /> },
 			],
 		},
 	])

@@ -1,12 +1,13 @@
 import React from 'react'
-import { FaRegHeart, FaHeart, FaDownload } from 'react-icons/fa'
-import { useGlobalContext } from './../hooks/useGlobalContext'
+import { FaDownload, FaHeart, FaRegHeart } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { useGlobalContext } from './../hooks/useGlobalContext'
 function Image({ image, added }) {
 	const { likedImages, dispatch } = useGlobalContext()
 	const { links, urls, alt_description, user } = image
 
-	const addLikedImage = image => {
+	const addLikedImage = (image, event) => {
+		event.preventDefault()
 		const alreadyAdded = likedImages.some(img => {
 			return img.id === image.id
 		})
@@ -17,13 +18,17 @@ function Image({ image, added }) {
 			dispatch({ type: 'UNLIKE', payload: image.id })
 		}
 	}
+	const downloadImage = e => {
+		e.preventDefault()
+		window.open(links.download + '&force=true',"_blank")
+	}
 
 	return (
-		<Link to={'/image-info'}>
+		<Link to={`/image-info/${image.id}`}>
 			<div className='relative group'>
 				{!added && (
 					<span
-						onClick={() => addLikedImage(image)}
+						onClick={event => addLikedImage(image, event)}
 						className='absolute heart-icon  hover-icons'
 					>
 						<FaRegHeart className='text-white ' />
@@ -32,7 +37,7 @@ function Image({ image, added }) {
 				{added && (
 					<span
 						className='absolute   heart-icon hover-icons bg-white'
-						onClick={() => addLikedImage(image)}
+						onClick={event => addLikedImage(image, event)}
 					>
 						<FaHeart className='text-red-600 ' />
 					</span>
@@ -51,9 +56,9 @@ function Image({ image, added }) {
 					<p className='text-white text-xs md:text-sm'>{user.name}</p>
 				</span>
 				<span className='absolute w-7 h-7  flex justify-center items-center cursor-pointer right-2 bottom-2 hover-icons '>
-					<a download href={links.download + '&force=true'}>
+					<span onClick={event => downloadImage(event)}>
 						<FaDownload className='text-white' />
-					</a>
+					</span>
 				</span>
 			</div>
 		</Link>
