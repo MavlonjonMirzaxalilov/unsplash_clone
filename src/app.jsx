@@ -13,17 +13,18 @@ import {
 
 // main layout
 import MainLayout from './layouts/MainLayout'
-
+import { Analytics } from '@vercel/analytics/react'
 //actions
 import { action as HomeAction } from './pages/Home'
 
 function App() {
 	const routes = createBrowserRouter([
-		{ 
+		{
 			path: '/',
 			exact: true,
 			element: <MainLayout />,
 			children: [
+				<Analytics />,
 				{ index: true, element: <Home />, action: HomeAction },
 				{ path: '/about', element: <About /> },
 				{ path: '/contact', element: <Contact /> },

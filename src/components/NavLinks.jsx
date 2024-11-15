@@ -11,7 +11,7 @@ function NavLinks() {
 		<>
 			{navLinks.map(link => {
 				return (
-					<li key={link.path}>
+					<li key={link.path} className='font-display font-bold text-xl'>
 						<Link to={link.path}>{link.text} </Link>
 					</li>
 				)

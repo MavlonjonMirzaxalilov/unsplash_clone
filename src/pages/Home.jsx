@@ -19,7 +19,7 @@ function Home() {
 
 	const { data, isPending, error } = useFetch(
 		`https://api.unsplash.com/search/photos?client_id=${
-			import.meta.env.VITE_ACCESS_KEY
+			import.meta.env.ACCESS_KEY
 		}&query=${searchParamFromAction ?? 'all'}&page=${pageParam}`
 	)
 
@@ -52,7 +52,7 @@ function Home() {
 
 			<div className='my-10 mx-auto'>
 				<button
-					className='btn btn-secondary btn-block'
+					className='btn btn-secondary font-display text-xl hover:text-white btn-block'
 					onClick={() => setPageParam(pageParam + 1)}
 				>
 					Read more

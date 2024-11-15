@@ -7,10 +7,10 @@ function LikedImages() {
 	if (likedImages.length === 0) {
 		return (
 			<div className='h-full flex justify-center items-center gap-10 flex-col'>
-				<h1 className='text-center text-xl md:text-4xl'>
+				<h1 className='text-center text-xl md:text-4xl font-display'>
 					You don't choose any images yet!
 				</h1>
-				<Link to={'/'} className='btn btn-primary btn-sm md:btn-md'>
+				<Link to={'/'} className='btn btn-primary btn-sm md:btn-md font-display'>
 					Go Home
 				</Link>
 			</div>

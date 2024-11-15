@@ -4,7 +4,7 @@ import { FaInstagram, FaTelegram } from 'react-icons/fa6'
 
 function Footer() {
 	return (
-		<div className='bg-base-200'>
+		<div className='bg-base-200 font-display px-2'>
 			<footer className='footer align-elements items-center p-4'>
 				<aside className='grid-flow-col items-center'>
 					<svg
