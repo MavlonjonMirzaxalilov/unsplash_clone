@@ -1,7 +1,9 @@
 import React from 'react'
+
 import { FaDownload, FaHeart, FaRegHeart } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useGlobalContext } from './../hooks/useGlobalContext'
+import { toast } from 'react-toastify'
 function Image({ image, added }) {
 	const { likedImages, dispatch } = useGlobalContext()
 	const { links, urls, alt_description, user } = image
@@ -20,15 +22,18 @@ function Image({ image, added }) {
 	}
 	const downloadImage = e => {
 		e.preventDefault()
-		window.open(links.download + '&force=true',"_blank")
+		window.open(links.download + '&force=true', '_blank')
 	}
-
+	const notify = () => toast('You liked this image❤️')
+	const dislike = () => toast.error('You disliked this image💔')
 	return (
 		<Link to={`/image-info/${image.id}`}>
 			<div className='relative group'>
 				{!added && (
 					<span
-						onClick={event => addLikedImage(image, event)}
+						onClick={event => {
+							addLikedImage(image, event), notify()
+						}}
 						className='absolute heart-icon  hover-icons'
 					>
 						<FaRegHeart className='text-white ' />
@@ -37,7 +42,7 @@ function Image({ image, added }) {
 				{added && (
 					<span
 						className='absolute rounded-md  heart-icon hover-icons bg-white'
-						onClick={event => addLikedImage(image, event)}
+						onClick={event => {addLikedImage(image, event),dislike()}}
 					>
 						<FaHeart className='text-red-600 ' />
 					</span>
@@ -53,7 +58,9 @@ function Image({ image, added }) {
 						alt={user.name + 'avatar'}
 						className=' w-5 h-5 md:w-8 rounded-md md:h-8'
 					/>
-					<p className='text-white text-xs font-display  md:text-lg'>{user.name}</p>
+					<p className='text-white text-xs font-display  md:text-lg'>
+						{user.name}
+					</p>
 				</span>
 				<span className='absolute w-7 h-7  flex justify-center items-center cursor-pointer right-2 bottom-2 hover-icons'>
 					<span onClick={event => downloadImage(event)}>

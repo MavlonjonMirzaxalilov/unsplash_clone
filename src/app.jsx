@@ -16,6 +16,8 @@ import MainLayout from './layouts/MainLayout'
 import { Analytics } from '@vercel/analytics/react'
 //actions
 import { action as HomeAction } from './pages/Home'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
 	const routes = createBrowserRouter([
@@ -25,6 +27,7 @@ function App() {
 			element: <MainLayout />,
 			children: [
 				<Analytics />,
+				<ToastContainer />,
 				{ index: true, element: <Home />, action: HomeAction },
 				{ path: '/about', element: <About /> },
 				{ path: '/contact', element: <Contact /> },
@@ -37,6 +40,7 @@ function App() {
 	return (
 		<>
 			<RouterProvider router={routes} />
+			<ToastContainer />
 		</>
 	)
 }
