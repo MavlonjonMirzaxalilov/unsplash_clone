@@ -1,5 +1,5 @@
 // react router dom
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 
 //pages
 import {
@@ -9,7 +9,12 @@ import {
 	Home,
 	ImageInfo,
 	LikedImages,
+	Login,
+	Register,
 } from './pages'
+
+//components
+import { ProtectedRoute } from './components'
 
 // main layout
 import MainLayout from './layouts/MainLayout'
@@ -20,11 +25,16 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
+	const user = true
 	const routes = createBrowserRouter([
 		{
 			path: '/',
 			exact: true,
-			element: <MainLayout />,
+			element: (
+				<ProtectedRoute user={user}>
+					<MainLayout />
+				</ProtectedRoute>
+			),
 			children: [
 				<Analytics />,
 				<ToastContainer />,
@@ -36,6 +46,8 @@ function App() {
 				{ path: '/image-info/:id', element: <ImageInfo /> },
 			],
 		},
+		{ path: '/login', element: user ? <Navigate to={'/'} /> : <Login /> },
+		{ path: '/register', element: user ? <Navigate to={'/'} /> : <Register /> },
 	])
 	return (
 		<>
