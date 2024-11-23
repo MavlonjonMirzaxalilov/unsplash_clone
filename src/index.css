@@ -24,4 +24,7 @@
 	main {
 		@apply grow;
 	}
+	.auth-bg {
+		@apply bg-[url('https://picsum.photos/900/1200')] bg-cover bg-center
+	}
 }
