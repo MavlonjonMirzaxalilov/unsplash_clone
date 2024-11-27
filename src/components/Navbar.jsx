@@ -10,6 +10,11 @@ import { useEffect, useState } from "preact/hooks";
 import { useGlobalContext } from "../hooks/useGlobalContext";
 import { NavLinks } from "./";
 
+//firebase
+import { signOut } from "firebase/auth";
+import { auth } from "./../firebase/firebaseconfig";
+import { toast } from "react-toastify";
+
 const themeFromLocalStorage = () => {
   return localStorage.getItem("theme") || "winter";
 };
@@ -20,6 +25,15 @@ function Navbar() {
   const toggleTheme = () => {
     const newTheme = theme == "winter" ? "dracula" : "winter";
     setTheme(newTheme);
+  };
+
+  const signOutUser = async () => {
+    try {
+      await signOut(auth);
+      toast.success("You are logged out.");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -102,7 +116,7 @@ function Navbar() {
                   <a>Settings</a>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  <button onClick={signOutUser}>Logout</button>
                 </li>
               </ul>
             </div>

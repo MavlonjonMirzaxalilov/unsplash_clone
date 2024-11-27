@@ -15,7 +15,7 @@ export const useRegister = () => {
       .then((result) => {
         const user = result.user;
         dispatch({ type: "LOGIN", payload: user });
-        toast.success("Welcome");
+        toast.success(`Welcome ${user.displayName}`);
       })
       .catch((error) => {
         const errorMessage = error.message;

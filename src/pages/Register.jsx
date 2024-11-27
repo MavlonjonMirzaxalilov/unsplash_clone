@@ -1,13 +1,44 @@
 //react icons
 import { FcGoogle } from "react-icons/fc";
 //
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useActionData } from "react-router-dom";
 //components
 import { FormInput } from "../components";
 //register hooks
 import { useRegister } from "../hooks/useRegister";
+import { toast } from 'react-toastify'
+import { useEffect } from 'preact/hooks'
+
+//action
+export const action = async ({ request }) => {
+  const form = await request.formData();
+  const displayName = form.get("displayName");
+  const email = form.get("email");
+  const password = form.get("password");
+  const confirm_password = form.get("confirm_password");
+
+  if (password == confirm_password) {
+    return {
+      displayName,
+      email,
+      password,
+      confirm_password,
+    };
+  }else{
+     toast.error('Passwords is not equal!')
+    return null;
+  }
+};
 
 function Register() {
+  const inputData = useActionData();
+ 
+  useEffect(()=>{
+    if(inputData){
+      console.log('')
+    }
+  },[inputData])
+
   const { registerWithGoogle } = useRegister();
   return (
     <div className="flex min-h-screen w-full">
@@ -27,7 +58,7 @@ function Register() {
             <FormInput placeholder="Password" name="password" type="password" />
             <FormInput
               placeholder="Confirm Password"
-              name="password"
+              name="confirm_password"
               type="password"
             />
           </div>

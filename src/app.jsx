@@ -25,7 +25,9 @@ import MainLayout from "./layouts/MainLayout";
 import { Analytics } from "@vercel/analytics/react";
 //actions
 import { action as HomeAction } from "./pages/Home";
-import { toast, ToastContainer } from "react-toastify";
+import { action as RegisterAction } from "./pages/Register";
+//
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useGlobalContext } from "./hooks/useGlobalContext";
 import { useEffect } from "preact/hooks";
@@ -55,16 +57,16 @@ function App() {
       ],
     },
     { path: "/login", element: user ? <Navigate to={"/"} /> : <Login /> },
-    { path: "/register", element: user ? <Navigate to={"/"} /> : <Register /> },
+    {
+      path: "/register",
+      element: user ? <Navigate to={"/"} /> : <Register />,
+      action: RegisterAction,
+    },
   ]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch({ type: "LOGIN", payload: user });
-      } else {
-        toast.warn("User already sign out");
-      }
+      dispatch({ type: "LOGIN", payload: user });
       dispatch({ type: "AUTH_READY" });
     });
   }, []);
