@@ -1,6 +1,11 @@
 //firebase imports
 import { auth } from "../firebase/firebaseconfig";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  updateProfile,
+} from "firebase/auth";
 //toaster
 import { toast } from "react-toastify";
 
@@ -22,5 +27,22 @@ export const useRegister = () => {
         toast.error(errorMessage);
       });
   };
-  return { registerWithGoogle };
+
+  const registerWithEmail = async (displayName, email, password) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        await updateProfile(auth.currentUser, {
+          displayName: displayName,
+          photoURL: `https://api.dicebear.com/9.x/initials/svg?seed=${displayName}`,
+        });
+        const user = userCredential.user;
+        dispatch({ type: "LOGIN", payload: user });
+        toast.success(`Welcome ${displayName}`);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        toast.error(errorMessage);
+      });
+  };
+  return { registerWithGoogle, registerWithEmail };
 };

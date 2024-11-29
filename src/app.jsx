@@ -26,6 +26,7 @@ import { Analytics } from "@vercel/analytics/react";
 //actions
 import { action as HomeAction } from "./pages/Home";
 import { action as RegisterAction } from "./pages/Register";
+import { action as LoginAction } from "./pages/Login";
 //
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -56,7 +57,11 @@ function App() {
         { path: "/image-info/:id", element: <ImageInfo /> },
       ],
     },
-    { path: "/login", element: user ? <Navigate to={"/"} /> : <Login /> },
+    {
+      path: "/login",
+      element: user ? <Navigate to={"/"} /> : <Login />,
+      action: LoginAction,
+    },
     {
       path: "/register",
       element: user ? <Navigate to={"/"} /> : <Register />,

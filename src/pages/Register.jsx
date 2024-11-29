@@ -6,8 +6,8 @@ import { Form, Link, useActionData } from "react-router-dom";
 import { FormInput } from "../components";
 //register hooks
 import { useRegister } from "../hooks/useRegister";
-import { toast } from 'react-toastify'
-import { useEffect } from 'preact/hooks'
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 //action
 export const action = async ({ request }) => {
@@ -22,24 +22,27 @@ export const action = async ({ request }) => {
       displayName,
       email,
       password,
-      confirm_password,
     };
-  }else{
-     toast.error('Passwords is not equal!')
+  } else {
+    toast.error("Passwords is not equal!");
     return null;
   }
 };
 
 function Register() {
   const inputData = useActionData();
- 
-  useEffect(()=>{
-    if(inputData){
-      console.log('')
-    }
-  },[inputData])
+  const { registerWithGoogle, registerWithEmail } = useRegister();
 
-  const { registerWithGoogle } = useRegister();
+  useEffect(() => {
+    if (inputData) {
+      registerWithEmail(
+        inputData.displayName,
+        inputData.email,
+        inputData.password,
+      );
+    }
+  }, [inputData]);
+
   return (
     <div className="flex min-h-screen w-full">
       <div className="auth-bg hidden w-[40%] md:block"></div>

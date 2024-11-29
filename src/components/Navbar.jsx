@@ -93,8 +93,8 @@ function Navbar() {
             {/* moon icon */}
             <FaMoon className="swap-off h-7 w-7 fill-current" />
           </label>
-          <div className="flex items-center gap-3">
-            {user.displayName.split(" ")[0]}
+          <div className="flex items-center gap-3 font-display">
+            {user.displayName && user.displayName.split(" ")[0]}
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -102,7 +102,12 @@ function Navbar() {
                 className="avatar btn btn-circle btn-ghost"
               >
                 <div className="w-10 rounded-full">
-                  <img src={user.photoURL} alt={user.displayName + "avatar"} />
+                  {user.photoURL && (
+                    <img
+                      src={user.photoURL}
+                      alt={user.displayName + "avatar"}
+                    />
+                  )}
                 </div>
               </div>
               <ul

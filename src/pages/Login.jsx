@@ -1,17 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 //react icons
 import { FcGoogle } from "react-icons/fc";
 // react router dom
-import { Form, Link } from "react-router-dom";
+import { Form, Link, useActionData } from "react-router-dom";
 // components
 import { FormInput } from "../components";
 
 //login with google
 import { useRegister } from "../hooks/useRegister";
+import useLogin from "./../hooks/useLogin";
+
+//action
+export const action = async ({ request }) => {
+  const form = await request.formData();
+  const email = form.get("email");
+  const password = form.get("password");
+
+  return {
+    email,
+    password,
+  };
+};
 
 function Login() {
+  const inputData = useActionData();
   const { registerWithGoogle } = useRegister();
+  const { loginWithEmail } = useLogin();
+  useEffect(() => {
+    if (inputData) {
+      loginWithEmail(inputData.email, inputData.password);
+    }
+  }, [inputData]);
   return (
     <div className="flex min-h-screen w-full">
       <div className="auth-bg hidden w-[40%] md:block"></div>
