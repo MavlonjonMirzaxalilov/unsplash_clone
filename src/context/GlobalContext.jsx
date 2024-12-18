@@ -1,5 +1,6 @@
 import { useReducer } from "preact/hooks";
 import { createContext, useEffect } from "react";
+import { useCollection } from "./../hooks/useCollection";
 
 export const GlobalContext = createContext();
 
@@ -21,13 +22,9 @@ const changeState = (state, action) => {
       return { ...state, authReady: true };
     case "LOGOUT":
       return { ...state, user: null };
-    case "LIKE":
-      return { ...state, likedImages: [...state.likedImages, payload] };
-    case "UNLIKE":
-      return {
-        ...state,
-        likedImages: state.likedImages.filter((image) => image.id !== payload),
-      };
+    case "ADD_COLLECTION_DATA":
+      return { ...state, likedImages: payload };
+
     default:
       return state;
   }
@@ -39,10 +36,20 @@ export function GlobalContextProvider({ children }) {
     likedImages: [],
     downloadImages: [],
   });
+  const { data: likedImages } = useCollection("likedImages", [
+    "uid",
+    "==",
+    state.user && state.user.uid,
+  ]);
 
   useEffect(() => {
     localStorage.setItem("my-splash-data", JSON.stringify(state));
   }, [state]);
+
+  useEffect(() => {
+    if (likedImages)
+      dispatch({ type: "ADD_COLLECTION_DATA", payload: likedImages });
+  }, [likedImages]);
 
   return (
     <GlobalContext.Provider value={{ ...state, dispatch }}>

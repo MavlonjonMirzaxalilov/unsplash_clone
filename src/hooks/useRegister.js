@@ -37,7 +37,7 @@ export const useRegister = () => {
         });
         const user = userCredential.user;
         dispatch({ type: "LOGIN", payload: user });
-        toast.success(`Welcome ${displayName}`);
+        // toast.success(`Welcome ${displayName}`);
       })
       .catch((error) => {
         const errorMessage = error.message;

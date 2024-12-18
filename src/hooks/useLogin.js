@@ -15,9 +15,9 @@ export default function useLogin() {
       })
       .catch((error) => {
         const errorMessage = error.message;
-		console.log(errorMessage);
-		
-		toast.error('Email or password is incorrect')
+        console.log(errorMessage);
+
+        toast.error("Email or password is incorrect");
       });
   };
   return { loginWithEmail };
