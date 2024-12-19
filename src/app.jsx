@@ -14,6 +14,7 @@ import {
   ImageInfo,
   LikedImages,
   Login,
+  ProfilePage,
   Register,
 } from "./pages";
 
@@ -55,6 +56,7 @@ function App() {
         { path: "/liked-images", element: <LikedImages /> },
         { path: "/download-images", element: <DownloadImages /> },
         { path: "/image-info/:id", element: <ImageInfo /> },
+        { path: "/profile", element: <ProfilePage /> },
       ],
     },
     {
