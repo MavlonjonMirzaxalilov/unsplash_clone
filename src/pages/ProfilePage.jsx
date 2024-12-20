@@ -1,6 +1,18 @@
 import { useGlobalContext } from "../hooks/useGlobalContext";
+
+//firebase
+import { sendEmailVerification } from "firebase/auth";
+import { auth } from "../firebase/firebaseconfig";
+import { toast } from "react-toastify";
 function ProfilePage() {
   const { user } = useGlobalContext();
+
+  const sendVerificationEmail = () => {
+    sendEmailVerification(auth.currentUser, { url: "" }).then(() => {
+      toast.success("Verification email sent✅");
+    });
+  };
+
   const usercreatetime = user.reloadUserInfo.createdAt;
   const timestamp = parseInt(usercreatetime, 10);
   const date = new Date(timestamp);
@@ -48,7 +60,12 @@ function ProfilePage() {
                 ) : (
                   <span className="flex items-center gap-2">
                     <span>Not verified❌</span>
-                    <button className="btn btn-success btn-xs">Verify</button>
+                    <button
+                      className="btn btn-success btn-xs"
+                      onClick={sendVerificationEmail}
+                    >
+                      Verify
+                    </button>
                   </span>
                 )}
               </span>
