@@ -8,7 +8,7 @@ function ProfilePage() {
   const { user } = useGlobalContext();
 
   const sendVerificationEmail = () => {
-    sendEmailVerification(auth.currentUser, { url: "" }).then(() => {
+    sendEmailVerification(auth.currentUser, { url: "http://localhost:5173/profile" }).then(() => {
       toast.success("Verification email sent✅");
     });
   };

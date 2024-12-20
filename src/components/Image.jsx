@@ -3,6 +3,7 @@ import { FaDownload, FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "./../hooks/useGlobalContext";
 import { useFireStore } from "../hooks/useFIrestore";
+import { toast } from "react-toastify";
 function Image({ image, added }) {
   const { likedImages, user: authUser } = useGlobalContext();
 
@@ -11,6 +12,9 @@ function Image({ image, added }) {
 
   const addLikedImage = (image, event) => {
     event.preventDefault();
+    if (!authUser.emailVerified) {
+      return toast.info("Please verify your email, go to profile");
+    }
     const alreadyAdded = likedImages.find((img) => {
       return img.id === image.id;
     });
@@ -23,6 +27,9 @@ function Image({ image, added }) {
   };
   const downloadImage = (e) => {
     e.preventDefault();
+    if (!authUser.emailVerified) {
+      return toast.info("Please verify your email, go to profile");
+    }
     window.open(links.download + "&force=true", "_blank");
   };
 
