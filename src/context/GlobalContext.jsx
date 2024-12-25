@@ -35,6 +35,7 @@ export function GlobalContextProvider({ children }) {
     authReady: false,
     likedImages: [],
     downloadImages: [],
+    loading: false,
   });
   const { data: likedImages } = useCollection("likedImages", [
     "uid",
